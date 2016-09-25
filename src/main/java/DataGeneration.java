@@ -63,22 +63,22 @@ public class DataGeneration {
 
     public static void main(String [] args) throws Exception{
 
-//        Product[] products = generateProducts(30000, 5, 200);
-//
-//        FileSystem fs = FileSystem.get(new Configuration());
-//
-//        HDFSWriter writer = new HDFSWriter(fs, args[0]);
-//        Thread writerThread = new Thread(writer);
-//        writerThread.start();
-//
-//        // schedule ten threads each generate one million user to the hdfs.
-//
-//        int numUsers = 10000;
-//        for(int i =0; i<numUsers; i+=(numUsers/10)){
-//            new Thread(new Generator(i, numUsers/10, products, writer)).start();
-//        }
-//
-//        writerThread.join();
+        Product[] products = generateProducts(30000, 5, 200);
+
+        FileSystem fs = FileSystem.get(new Configuration());
+
+        HDFSWriter writer = new HDFSWriter(fs, args[0]);
+        Thread writerThread = new Thread(writer);
+        writerThread.start();
+
+        // schedule ten threads each generate one million user to the hdfs.
+
+        int numUsers = 10000;
+        for(int i =0; i<numUsers; i+=(numUsers/10)){
+            new Thread(new Generator(i, numUsers/10, products, writer)).start();
+        }
+
+        writerThread.join();
 
         Configuration conf = new Configuration();
         Job aggregateJob = Job.getInstance(conf, "user transaction");
